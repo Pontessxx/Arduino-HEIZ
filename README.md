@@ -1,4 +1,5 @@
 # Projeto de Monitoramento Ambiental
+![image](https://github.com/Pontessxx/Arduino-HEIZ/assets/126187491/08413365-8481-4565-a545-8f946a448ebd)
 
 Este projeto utiliza um Arduino para monitorar a temperatura, umidade, nível de luz e umidade do solo em um ambiente. Com base nos valores coletados, o sistema aciona LEDs e um motor de acordo com as condições ambientais.
 

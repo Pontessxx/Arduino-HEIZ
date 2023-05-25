@@ -1,9 +1,10 @@
 # Projeto de Monitoramento Ambiental
+
 ![image](https://github.com/Pontessxx/Arduino-HEIZ/assets/126187491/08413365-8481-4565-a545-8f946a448ebd)
 
 Este projeto utiliza um Arduino para monitorar a temperatura, umidade, nível de luz e umidade do solo em um ambiente. Com base nos valores coletados, o sistema aciona LEDs e um motor de acordo com as condições ambientais.
 Nosso projeto é um sistema de irrigação autônomo, Desenvolvido voltado para fazendas de pequeno e médio porte padronizando a produção de canas de açúcar o item que temos reconhecimento a fora do mundo. a configuração pode ser   editada para atuar em qualquer condição de: Temperatura , incidência de luz solar e umidade presente no solo. Identificando a umidade do solo, e ligando a bomba de água para regar as plantas assim que se identificar necessário. Pode-se complementar esse projeto instalando novas placas solares que captam e utilizam a energia a qual é escassa em regiões rurais.
-
+<a href="https://www.tinkercad.com/things/jF4wiORb41d?sharecode=nk5zQd-8BtCSaRzSzX4gIj9It6Q3VhzU6KKkw0ai6EU">Tinkercad-link</a>
 ## Materiais Necessários
 
 - Arduino Uno

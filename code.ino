@@ -15,6 +15,7 @@ const int LCD_D5 = 7;
 const int LCD_D6 = 6;
 const int LCD_D7 = 5;
 const int sensorUmidade = A5;
+const int motor = 13;
 //solo
 
 
@@ -26,8 +27,9 @@ void setup() {
   pinMode(GREEN_LED_PIN, OUTPUT);
   pinMode(YELLOW_LED_PIN, OUTPUT);
   pinMode(RED_LED_PIN, OUTPUT);
-  pinMode(MOTOR, OUTPUT);
-  
+  pinMode(MOTOR, OUTPUT); //led
+   pinMode(motor, OUTPUT);
+  pinMode(A4, INPUT);
   lcd.begin(16, 2);
 }
 
@@ -36,6 +38,10 @@ void loop() {
   int humidity = readHumidity();
   int lightLevel = readLightLevel();
   int umidadeSolo = analogRead(sensorUmidade);
+  int valor= analogRead(4);
+  float volt = float (valor)/ 1023*5.0;
+  float pHValue = 2.63 * volt - 0.36;
+  //int phValor = phPrint();
   // Exibição dos valores no monitor serial
   Serial.print("Temperature: ");
   Serial.print(temperature, 1);
@@ -52,22 +58,24 @@ void loop() {
   Serial.println(umidadeSolo);
   
   
-  
   // Verificar a condição do ambiente
-  if (lightLevel<=649 || temperature >= 35 || humidity > 70 ||temperature <=20 ||umidadeSolo <= 150) {
+  if (lightLevel<=649 || temperature >= 35 || humidity > 70 ||temperature <=20 ||umidadeSolo <= 150 ||(pHValue >7 || pHValue <4)) {
     // Ambiente ruim - LED vermelho aceso
     // lightLevel >= 950 
     //(lightLevel >= 950 || temperature >= 35 || humidity > 70 ||temperature <=20 ||umidadeSolo <= 150) 
+    //(pHValue >7 || pHValue <4) RUIM
+	// (pHValue >=4 && pHValue <=6) MED
     digitalWrite(GREEN_LED_PIN, LOW);
     digitalWrite(YELLOW_LED_PIN, LOW);
     digitalWrite(RED_LED_PIN, HIGH);
     
-    delay(500);
+    //delay(500);
     terraPrint();
+    phPrint();
     umiPrint();
     luzPrint();
     tempPrint();
-  } else if ((lightLevel >= 650 && lightLevel<=949)||(umidadeSolo >= 150 && umidadeSolo<=550)) {
+  } else if ((lightLevel >= 650 && lightLevel<=949)||(umidadeSolo >= 150 && umidadeSolo<=550)||(pHValue >=4 && pHValue <=6)) {
     // Ambiente mediano - LED amarelo aceso
     // lightLevel >= 650 && lightLevel<=949
     //  ((lightLevel >= 650 && lightLevel<=949)||(umidadeSolo >= 150 && umidadeSolo<=550)) 
@@ -76,6 +84,7 @@ void loop() {
     digitalWrite(RED_LED_PIN, LOW);
     
     terraPrint();
+    phPrint();
     umiPrint();
     luzPrint();
     tempPrint();
@@ -88,6 +97,7 @@ void loop() {
     digitalWrite(RED_LED_PIN, LOW);
     
     terraPrint();
+    phPrint();
     umiPrint();
     luzPrint();
     tempPrint();
@@ -183,6 +193,7 @@ int terraPrint(){
     int umidadeSolo = analogRead(sensorUmidade);
     if (umidadeSolo <= 150){
         digitalWrite(MOTOR, HIGH);
+      	digitalWrite(motor, HIGH);
         lcd.print("Umi.TERRA: BAIXA");
         lcd.setCursor(0, 1);
         lcd.print("Umid. = ");
@@ -192,6 +203,7 @@ int terraPrint(){
         lcd.clear();
     }else if (umidadeSolo >= 150 && umidadeSolo<=550){
         digitalWrite(MOTOR, LOW);
+      	digitalWrite(motor, LOW);
         lcd.print("UmiTERRA: MEDIA");
         lcd.setCursor(0, 1);
         lcd.print("Umid. = ");
@@ -201,10 +213,44 @@ int terraPrint(){
         lcd.clear();
     }else if (umidadeSolo>=550){
         digitalWrite(MOTOR, LOW);
+      	digitalWrite(motor, LOW);
         lcd.print("Umi.TERRA: BOA");
         lcd.setCursor(0, 1);
         lcd.print("Umid. = ");
         lcd.print(umidadeSolo);
+        lcd.print("   ");
+        delay(2000);
+        lcd.clear();
+    }
+}
+int phPrint() {
+    int valor= analogRead(4);
+    float volt = float (valor)/ 1023*5.0;
+    float pHValue = 2.63 * volt - 0.36;
+    //(pHValue >7 || pHValue <4) RUIM
+	// (pHValue >=4 && pHValue <=6) MED
+	// 
+    if (pHValue >7 || pHValue <4){
+        lcd.print("Ph agua: RUIM");
+        lcd.setCursor(0, 1);
+        lcd.print("ph = ");
+        lcd.print(pHValue);
+        lcd.print("   ");
+        delay(2000);
+        lcd.clear();
+    } else if (pHValue >=4 && pHValue <=6){
+        lcd.print("Ph agua: MED");
+        lcd.setCursor(0, 1);
+        lcd.print("ph = ");
+        lcd.print(pHValue);
+        lcd.print("   ");
+        delay(2000);
+        lcd.clear();
+    }else{
+        lcd.print("Ph agua: BOM");
+        lcd.setCursor(0, 1);
+        lcd.print("ph = ");
+        lcd.print(pHValue);
         lcd.print("   ");
         delay(2000);
         lcd.clear();

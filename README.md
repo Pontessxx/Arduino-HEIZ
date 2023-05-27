@@ -42,7 +42,7 @@ Nosso projeto é um sistema de irrigação autônomo, Desenvolvido voltado para 
 - Certifique-se de ter a biblioteca LiquidCrystal instalada na sua IDE do Arduino. Caso contrário, você pode instalá-la acessando "Sketch" -> "Incluir Biblioteca" -> "LiquidCrystal".
 
 ## Como Usar
-
+https://github.com/Pontessxx/Arduino-HEIZ/assets/126187491/a2791db7-00ac-428b-8adf-753fa289de70
 1. Carregue o código no Arduino utilizando a IDE do Arduino.
 2. Abra o Monitor Serial para visualizar as leituras dos sensores.
 3. Observe as informações exibidas no Monitor Serial para verificar as condições do ambiente.
